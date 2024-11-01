@@ -42,7 +42,9 @@ export const login = async (req, res) => {
 };
 
 export const refreshToken = ( req, res) => {
-    const refreshToken = req.cookies.refreshToken;
+    const refreshToken = req.headers?.cookie?.split('refreshToken=')[1]?.split(';')[0];
+console.log('Extracted token:', refreshToken);
+    // const refreshToken = req.cookie.refreshToken;
     if(!refreshToken){
         return res.status(401).json({ message: "Access Denied. No refresh token provided."});
     }
